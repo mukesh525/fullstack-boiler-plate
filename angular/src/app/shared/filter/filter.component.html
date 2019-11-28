@@ -1,0 +1,10 @@
+<form>
+
+    <div class="form-group my-4">
+        <label for="searchbox">Type to search here</label>
+        <input type="search" name="searchbox" id="searchbox" class="form-control"
+            placeholder="Enter terms to search for" aria-describedby="helpId" [(ngModel)]="filterKey"
+            (ngModelChange)='filter()'>
+
+    </div>
+</form>

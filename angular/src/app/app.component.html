@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <ul class="nav navbar-nav">
+        <li class="nav-item active">
+            <!-- Interpolations {{menuItems[0].url}} -->
+            <a class="nav-link" [routerLink]="menuItems[0].url">{{menuItems[0].name}} <span
+                    class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="menuItems[1].url">{{menuItems[1].name}} </a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+<div class="container">
+    <router-outlet></router-outlet>
+    <!-- <app-about></app-about>
+    <app-workshops-list></app-workshops-list> -->
+</div>

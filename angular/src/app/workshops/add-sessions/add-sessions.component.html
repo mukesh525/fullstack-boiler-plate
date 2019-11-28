@@ -1,0 +1,112 @@
+<div class="my-4">
+    <h3>
+        Details of new session
+        <div class="float-right">
+            <button class="btn btn-danger" [routerLink]="['..']">Cancel</button>
+        </div>
+    </h3>
+    <hr />
+    <div *ngIf="success && !error">
+        <div class="alert alert-primary">
+            <strong>Added sucessfully</strong>
+        </div>
+    </div>
+    <div *ngIf="error && !success">
+        <div class="alert alert-danger">
+            <strong>Failed to Add sessions</strong>
+        </div>
+    </div>
+</div>
+<form #addSessionForm='ngForm' (ngSubmit)="addSession(addSessionForm,$event)">
+    <div class="form-group row">
+        <label for="sequenceId" class="col-sm-3 col-form-label">Sequence ID</label>
+        <div class="col-sm-9">
+
+            <input type="text" class="form-control" [ngClass]="{
+            'is-valid':sequenceId.valid,
+            'is-invalid':sequenceId.invalid && (sequenceId.dirty || sequenceId.touched)
+            }" name="sequenceId" id="sequenceId" placeholder="" aria-describedby="sequenceHelpId" ngModel required
+                pattern="^\d+$" #sequenceId="ngModel">
+            <small id="sequenceHelpId" class="text-muted">Sequence ID is the serial number of the session in the
+                workshop</small>
+
+            <div class="valid-feedback" *ngIf="sequenceId.valid">
+                All good
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="sequenceId.errors?.required && (sequenceId.dirty || sequenceId.touched)">
+                Please fill out serial number
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="sequenceId.errors?.pattern && (sequenceId.dirty || sequenceId.touched)">
+                Wrong Pattern
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="name" id="name" placeholder="" aria-describedby="NameHelpId"
+                ngModel required #name="ngModel">
+            <small id="NameHelpId" class="text-muted">The title of the session</small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="speaker" class="col-sm-3 col-form-label">Speaker(s)</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="speaker" id="speaker" placeholder="" ngModel required
+                pattern="^[^A-Za-z]+(,[A-Za-z]+)*$" aria-describedby="speakerHelpId" #speaker="ngModel" [ngClass]="{
+                    'is-valid':speaker.valid,
+                    'is-invalid':speaker.invalid && (speaker.dirty || speaker.touched)
+                    }">
+            <small id="speakerHelpId" class="text-muted">The name of the speaker(s) for this session. Separate speaker
+                names by a comma. Example <strong>John Doe, Jane Doe</strong>.</small>
+
+            <div class="valid-feedback" *ngIf="speaker.valid">
+                All good
+            </div>
+            <div class="invalid-feedback" *ngIf="speaker.errors?.required && (speaker.dirty || speaker.touched)">
+                Please fill speaker number
+            </div>
+            <div class="invalid-feedback" *ngIf="speaker.errors?.pattern && (speaker.dirty || speaker.touched)">
+                Wrong Pattern
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="duration" class="col-sm-3 col-form-label">Duration</label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control" name="duration" id="duration" placeholder=""
+                aria-describedby="durationHelpId" ngModel required pattern="^\d+(.\d*)?$" #duration="ngModel">
+            <small id="durationHelpId" class="text-muted">The length of the session in hours</small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="level" class="col-sm-3 col-form-label">Level</label>
+        <div class="col-sm-9">
+            <select class="form-control" name="level" id="level" ngModel required #level="ngModel">
+                <option value="">-- Select the level of the session --</option>
+                <option value="Basic">Basic</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="duration" class="col-sm-3 col-form-label">Abstract</label>
+        <div class="col-sm-9">
+            <textarea type="number" class="form-control" name="abstract" id="abstract" ngModel required minlength="5"
+                aria-describedby="abstractHelpId" #abstract="ngModel"></textarea>
+            <small id="abstractHelpId" class="text-muted">A brief description of the session topics</small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+            <button type="submit" class="btn btn-primary" [disabled]="addSessionForm.invalid">Add session</button>
+        </div>
+    </div>
+</form>

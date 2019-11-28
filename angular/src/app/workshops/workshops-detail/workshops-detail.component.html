@@ -1,0 +1,77 @@
+<div>
+    <h2>{{workshop?.name}}
+        <!-- { {workshop.name}} -->
+    </h2>
+    <div *ngIf="!workshop && !error">
+        <div class="alert alert-primary">
+            <strong>We are fetching the list of workshops.</strong>
+        </div>
+    </div>
+    <div *ngIf="error">
+        <div class="alert alert-danger">
+            <strong>Failed to load workshops</strong>
+        </div>
+    </div>
+    <hr />
+    <div class="row my-4">
+        <div class="col-4">
+            <!-- set the workshop image url -->
+
+            <img [src]="workshop?.imageUrl" class="img-fluid">
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-3">
+                    <p>
+                        <small>
+                            <span> {{workshop?.startDate|date:'dd-MM-yyyy'}}
+                            </span>{{workshop?.endDate|date:'dd-MM-yyyy'}}<span></span>
+                        </small>
+                    </p>
+                    <p>
+                        <small class="text-muted">
+                            <!-- workshop time goes in here-->
+                            {{workshop?.time}}
+                        </small>
+                    </p>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <span [ngSwitch]="workshop?.modes?.online">
+
+                            <!-- <i *ngIf="!workshop.modes.online" class="fas fa-times"></i>
+                            <i *ngIf="workshop.modes.online" class="fas fa-check"></i> -->
+
+                            <i class="fas fa-times" *ngSwitchCase="false"></i>
+                            <i class="fas fa-check" *ngSwitchDefault></i>
+                            Online
+                        </span>
+                    </div>
+                    <div>
+                        <span [ngSwitch]="workshop?.modes?.inPerson">
+
+                            <!-- <i *ngIf="!workshop.modes.inPerson" class="fas fa-times"></i>
+                            <i *ngIf="workshop.modes.inPerson" class="fas fa-check"></i> -->
+                            <i class="fas fa-times" *ngSwitchCase="false"></i>
+                            <i class="fas fa-check" *ngSwitchDefault></i>
+                            In person
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div [innerHTML]=workshop?.description>
+                <!-- event description goes in here -->
+
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100">
+        <router-outlet></router-outlet>
+
+    </div>
+    <!-- <app-add-sessions></app-add-sessions>
+    <app-sessions-list></app-sessions-list> -->
+
+</div>

@@ -1,0 +1,65 @@
+<div class="row my-4">
+    <div class="col-12">
+        <h3>
+            Sessions in this workshop
+            <div class="float-right">
+                <button class="btn btn-primary" [routerLink]="['add']">Add Session</button>
+            </div>
+        </h3>
+        <hr />
+        <div *ngIf="!data && !error">
+            <div class="alert alert-primary">
+                <strong>We are fetching the list of sessions.</strong>
+            </div>
+        </div>
+        <div *ngIf="error">
+            <div class="alert alert-danger">
+                <strong>Failed to load workshops</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-12">
+        <app-filter [items]="data" filterprops="name" (filtered)="filteredSession=$event"></app-filter>
+    </div>
+    <div class="col-12">
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let session of data">
+                <div class="row">
+                    <div class="col-1">
+
+                        <app-voting [count]='session.upvoteCount' (upVote)="upVoteClick($event)"></app-voting>
+                    </div>
+                    <div class="col-11">
+                        <div class="lead">
+                            <!-- session name -->
+                            {{session.name}}
+                        </div>
+                        <div class="h6">by
+                            <!-- session speaker -->
+                            {{session.speaker}}
+                        </div>
+                        <div>
+                            <span class="badge" [ngClass]="
+                                {
+                                    'badge-success': session.level === 'Basic', 
+                                    'badge-primary': session.level === 'Intermediate', 
+                                    'badge-warning' : session.level === 'Advanced'
+                                }">
+                                <!-- session level --> {{session.level}}</span>
+                        </div>
+                        <div class="my-2">
+                            <!-- session duration --> {{session.duration|duration:'hh:mm:ss'}} hours
+                        </div>
+                        <p>
+                            <!-- session abstract -->
+                            {{session.abstract}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

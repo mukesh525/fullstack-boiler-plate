@@ -1,0 +1,50 @@
+<div>
+    <h2>
+        List of Workshops
+        <button class='btn btn-primary float-right' (click)="onShowHide()">
+            {{show ? 'Hide Details':'Show Details'}}
+        </button>
+    </h2>
+    <hr />
+
+    <div *ngIf="!workshopAll && !error">
+        <div class="alert alert-primary">
+            <strong>We are fetching the list of workshops.</strong>
+        </div>
+    </div>
+    <div *ngIf="error">
+        <div class="alert alert-danger">
+            <strong>Failed to load workshops</strong>
+        </div>
+    </div>
+    <div class="col-12">
+        <app-filter [items]="workshopAll" filterprops="name" (filtered)="workshops=$event"></app-filter>
+    </div>
+    <div class=" row">
+        <div class="col-4 d-flex" *ngFor="let workshop of workshops ">
+            <div class="card w-100 my-3 d-flex flex-column" [title]='workshop.name' [routerLink]=[workshop.id]>
+                <div class="card-body">
+                    <img [src]="workshop.imageUrl" [style.height.px]='50'>
+                    <h4 class="card-title">{{workshop.name}}</h4>
+                    <div class="card-text">
+                        <div>
+                            <span>
+                                {{workshop.startDate|date:'dd-MM-yyyy'}}
+                            </span>{{workshop.endDate|date:'dd-MM-yyyy'}}<span></span>
+                        </div>
+                        <div>
+                            <span>
+                                {{workshop.time}}</span>
+                        </div>
+
+
+                        <div class="my-3" *ngIf="show" [innerHTML]=workshop.description>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
